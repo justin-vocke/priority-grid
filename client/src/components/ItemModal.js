@@ -18,7 +18,8 @@ import { addItem } from '../actions/ItemActions';
 class ItemModal extends Component {
   state = {
     modal: false,
-    name: ''
+    name: '',
+    quadrant: null
   }
 
   toggle = () => {
@@ -36,7 +37,8 @@ class ItemModal extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const newItem = {
-      name: this.state.name
+      name: this.state.name,
+      quadrant: e.target.value
     }
 
 
@@ -77,6 +79,16 @@ class ItemModal extends Component {
                   placeholder="Add shopping item"
                   onChange={this.onChange}
                 />
+
+                <Label for="select">
+                  Which quadrant?
+                </Label>
+                <Input type="select" name="select" id="select" onChange={this.onChange}>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                </Input>
                 <Button
                   color="dark"
                   style={{ marginTop: '2rem' }}

@@ -7,6 +7,10 @@ const ItemSchema = new Schema({
     type: String,
     required: true
   },
+  quadrant: {
+    type: Number,
+    required: true
+  },
   date: {
     type: Date,
     default: Date.now

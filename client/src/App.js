@@ -6,7 +6,7 @@ import store from './store';
 import ItemModal from './components/ItemModal';
 import { Container } from 'reactstrap';
 import './App.css';
-import ShoppingList from './components/ShoppingList';
+import ShoppingList from './components/ShoppingList/ShoppingList';
 
 class App extends Component {
   render() {
