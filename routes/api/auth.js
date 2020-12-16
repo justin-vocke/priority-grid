@@ -17,6 +17,7 @@ router.post('/',
       return res.status(400).json({ msg: "Please fill out all fields" });
     }
     try {
+      //check for existing user *since we'd write email:email we can shorthand to just email
       let user = await User.findOne({ email });
 
       if (user) return res.status(400).json({ msg: "User already exists" });
@@ -58,7 +59,7 @@ router.post('/',
       console.error(err.message);
       res.status(500).send('sever error');
     }
-    //check for existing user *since we'd write email:email we can shorthand to just email
+
 
   })
 

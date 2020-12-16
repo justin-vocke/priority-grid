@@ -1,25 +1,22 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+
 const path = require('path');
 const items = require('./routes/api/items');
-
+const connectDB = require('./config/db');
 
 
 const app = express();
 
 //Bodyparser Middleware
 
-app.use(bodyParser.json());
+app.use(express.json());
 
-//DB Config
-const db = require('./config/keys').mongoURI;
+
 
 //Connect to Mongo
-mongoose
-  .connect(db)
-  .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+connectDB();
+
 
 //Use Routes
 app.use('/api/items', require('./routes/api/items'));

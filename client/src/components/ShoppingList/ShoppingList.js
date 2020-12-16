@@ -26,121 +26,131 @@ class ShoppingList extends Component {
       (
         <Container>
           <Row className="center">
-            <Col>
+            <Col className="padding-bottom">
               Quadrant 1
           </Col>
-            <Col>
+            <Col className="padding-bottom">
               Quadrant 2
           </Col>
           </Row>
           <Row className="margin-bottom">
             <Col>
               <ListGroup>
+                <TransitionGroup className="shopping-list">
+                  {items
+                    .filter(item => {
+                      return item.quadrant == "1"
+                    }).map(({ _id, name, quadrant }) => (
+                      <CSSTransition key={_id} timeout={500} classNames="fade">
+                        <ListGroupItem>
+                          <Button
+                            className="remove-btn"
+                            color="danger"
+                            size="sm"
+                            onClick={this.onDeleteClick.bind(this, _id)}
+                          >&times;
+
+                    </Button>
+                          {name}
+                          {console.log(name)}
+                        </ListGroupItem>
+                      </CSSTransition>
+                    ))}
+                </TransitionGroup>
 
 
-                {items.map(({ _id, name }) => (
-
-                  <ListGroupItem>
-                    <Button
-                      className="remove-btn"
-                      color="danger"
-                      size="sm"
-                      onClick={this.onDeleteClick.bind(this, _id)}
-                    >&times;
-
-                  </Button>
-                    {name}
-                    {console.log(name)}
-                  </ListGroupItem>
-
-                ))}
 
               </ListGroup>
             </Col>
             <Col>
               <ListGroup>
+                <TransitionGroup className="shopping-list">
+                  {items.filter(item => {
+                    return item.quadrant == "2"
+                  }).map(({ _id, name }) => (
+                    <CSSTransition key={_id} timeout={500} classNames="fade">
+                      <ListGroupItem>
+                        <Button
+                          className="remove-btn"
+                          color="danger"
+                          size="sm"
+                          onClick={this.onDeleteClick.bind(this, _id)}
+                        >&times;
 
-
-                {items.map(({ _id, name }) => (
-
-                  <ListGroupItem>
-                    <Button
-                      className="remove-btn"
-                      color="danger"
-                      size="sm"
-                      onClick={this.onDeleteClick.bind(this, _id)}
-                    >&times;
-
-                  </Button>
-                    {name}
-                    {console.log(name)}
-                  </ListGroupItem>
-
-                ))}
-
+                    </Button>
+                        {name}
+                        {console.log(name)}
+                      </ListGroupItem>
+                    </CSSTransition>
+                  ))}
+                </TransitionGroup>
               </ListGroup>
             </Col>
+          </Row>
+          <Row className="center">
+            <Col className="padding-bottom">
+              Quadrant 3
+          </Col>
+            <Col className="padding-bottom">
+              Quadrant 4
+          </Col>
           </Row>
           <Row>
             <Col>
               <ListGroup>
 
+                <TransitionGroup className="shopping-list">
+                  {items.filter(item => {
+                    return item.quadrant == "3"
+                  }).map(({ _id, name }) => (
+                    <CSSTransition key={_id} timeout={500} classNames="fade">
+                      <ListGroupItem>
+                        <Button
+                          className="remove-btn"
+                          color="danger"
+                          size="sm"
+                          onClick={this.onDeleteClick.bind(this, _id)}
+                        >&times;
 
-                {items.map(({ _id, name }) => (
-
-                  <ListGroupItem>
-                    <Button
-                      className="remove-btn"
-                      color="danger"
-                      size="sm"
-                      onClick={this.onDeleteClick.bind(this, _id)}
-                    >&times;
-
-                  </Button>
-                    {name}
-                    {console.log(name)}
-                  </ListGroupItem>
-
-                ))}
-
+                    </Button>
+                        {name}
+                        {console.log(name)}
+                      </ListGroupItem>
+                    </CSSTransition>
+                  ))}
+                </TransitionGroup>
               </ListGroup>
             </Col>
             <Col>
               <ListGroup>
+                <TransitionGroup className="shopping-list">
+                  {items.filter(item => {
+                    return item.quadrant == "4"
+                  }).map(({ _id, name }) => (
+                    <CSSTransition key={_id} timeout={500} classNames="fade">
+                      <ListGroupItem>
+                        <Button
+                          className="remove-btn"
+                          color="danger"
+                          size="sm"
+                          onClick={this.onDeleteClick.bind(this, _id)}
+                        >&times;
 
-
-                {items.map(({ _id, name }) => (
-
-                  <ListGroupItem>
-                    <Button
-                      className="remove-btn"
-                      color="danger"
-                      size="sm"
-                      onClick={this.onDeleteClick.bind(this, _id)}
-                    >&times;
-
-                  </Button>
-                    {name}
-                    {console.log(name)}
-                  </ListGroupItem>
-
-                ))}
-
+                    </Button>
+                        {name}
+                        {console.log(name)}
+                      </ListGroupItem>
+                    </CSSTransition>
+                  ))}
+                </TransitionGroup>
               </ListGroup>
             </Col>
 
           </Row>
-          <Row className="center">
-            <Col>
-              Quadrant 3
-          </Col>
-            <Col>
-              Quadrant 4
-          </Col>
-          </Row>
 
 
-        </Container>
+
+        </Container >
 
       );
   }

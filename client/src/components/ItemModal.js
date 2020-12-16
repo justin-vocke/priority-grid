@@ -34,12 +34,18 @@ class ItemModal extends Component {
     })
   }
 
+  onQuadrantChange = e => {
+    this.setState({
+      quadrant: e.target.value
+    })
+  }
   onSubmit = (e) => {
     e.preventDefault();
     const newItem = {
       name: this.state.name,
-      quadrant: e.target.value
+      quadrant: this.state.quadrant
     }
+
 
 
     //Add item via addItem action
@@ -83,7 +89,7 @@ class ItemModal extends Component {
                 <Label for="select">
                   Which quadrant?
                 </Label>
-                <Input type="select" name="select" id="select" onChange={this.onChange}>
+                <Input type="select" name="select" id="select" onChange={this.onQuadrantChange}>
                   <option>1</option>
                   <option>2</option>
                   <option>3</option>

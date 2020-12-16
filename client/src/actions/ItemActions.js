@@ -24,13 +24,14 @@ export const deleteItem = id => dispatch => {
 }
 
 export const addItem = item => async dispatch => {
+  const { name, quadrant } = item;
   try {
     const config = {
       headers: {
         'Content-Type': 'application/json'
       }
     }
-    const body = JSON.stringify({ item });
+    const body = JSON.stringify({ name, quadrant });
     const res = await axios.post('/api/items', body, config);
 
     dispatch({
