@@ -1,4 +1,4 @@
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from './types';
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, UPDATE_ITEM } from './types';
 import axios from 'axios';
 
 export const getItems = () => async dispatch => {
@@ -13,7 +13,9 @@ export const getItems = () => async dispatch => {
 
 };
 
+//action to delete item using item id
 export const deleteItem = id => dispatch => {
+  console.log("id is type " + typeof id);
   axios
     .delete(`/api/items/${id}`)
     .then(res =>
@@ -23,6 +25,7 @@ export const deleteItem = id => dispatch => {
       }))
 }
 
+//action to add item to list
 export const addItem = item => async dispatch => {
   const { name, quadrant } = item;
   try {
@@ -38,6 +41,31 @@ export const addItem = item => async dispatch => {
       type: ADD_ITEM,
       payload: res.data
     })
+  }
+
+  catch (err) {
+    console.log(err.message);
+  }
+
+}
+
+//action to UPDATE a item using item's id
+export const updateItem = item => async dispatch => {
+  const { name, quadrant, id } = item;
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }
+    const body = JSON.stringify({ name, quadrant, id });
+    const res = await axios.put(`/api/items/${id}`, body, config);
+
+    dispatch({
+      type: UPDATE_ITEM,
+      payload: res.data
+    })
+
   }
 
   catch (err) {

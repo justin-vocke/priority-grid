@@ -1,6 +1,6 @@
 
-import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from '../actions/types';
-
+import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING, UPDATE_ITEM } from '../actions/types';
+import { updateItem } from './item.utils';
 const initialState = {
   items: [],
   loading: false
@@ -23,10 +23,16 @@ const itemReducer = (state = initialState, action) => {
     case ADD_ITEM:
       return {
         ...state,
-        items: [{
-          "name": payload.name,
-          "quadrant": payload.quadrant
-        }, ...state.items]
+        items: [payload, ...state.items]
+      }
+    case UPDATE_ITEM:
+      var updatedItem = updateItem(payload, state.items);
+      console.log(payload._id + " _id in reducer");
+      return {
+        ...state,
+        items: [
+          updatedItem,
+          , ...state.items]
       }
     case ITEMS_LOADING:
       return {

@@ -13,14 +13,18 @@ import {
 
 import { connect } from 'react-redux';
 
-import { addItem } from '../actions/ItemActions';
+import { updateItem, deleteItem } from '../actions/ItemActions';
 
-class ItemModal extends Component {
-  state = {
-    modal: false,
-    name: '',
-    quadrant: 1
+class UpdateModal extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      modal: false,
+      name: this.props.name,
+      quadrant: 1
+    }
   }
+
 
   toggle = () => {
     this.setState({
@@ -43,13 +47,14 @@ class ItemModal extends Component {
     e.preventDefault();
     const newItem = {
       name: this.state.name,
-      quadrant: this.state.quadrant
+      quadrant: this.state.quadrant,
+      id: this.props.id
     }
 
 
 
     //Add item via addItem action
-    this.props.addItem(newItem);
+    this.props.updateItem(newItem);
 
     //Close modal
     this.toggle();
@@ -63,14 +68,14 @@ class ItemModal extends Component {
           color="dark"
           style={{ marginBottom: '2rem' }}
           onClick={this.toggle}>
-          Add Item
+          Edit Item
         </Button>
         <Modal
           isOpen={this.state.modal}
           toggle={this.toggle}>
           <ModalHeader
             toggle={this.toggle}>
-            Add To Shopping List
+            Update Item
           </ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
@@ -82,7 +87,7 @@ class ItemModal extends Component {
                   type="text"
                   name="name"
                   id="item"
-                  placeholder="Add shopping item"
+                  placeholder={this.props.name}
                   onChange={this.onChange}
                 />
 
@@ -114,4 +119,4 @@ class ItemModal extends Component {
 const mapStateToProps = state => ({
   item: state.item
 });
-export default connect(mapStateToProps, { addItem })(ItemModal);
+export default connect(mapStateToProps, { updateItem, deleteItem })(UpdateModal);

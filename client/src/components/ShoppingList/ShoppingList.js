@@ -7,6 +7,7 @@ import { getItems, deleteItem } from '../../actions/ItemActions';
 import PropTypes from 'prop-types';
 import './ShoppingList.css';
 import Spinner from '../layout/spinner';
+import UpdateModal from '../UpdateModal';
 
 class ShoppingList extends Component {
 
@@ -28,7 +29,8 @@ class ShoppingList extends Component {
           <Row className="center">
             <Col className="padding-bottom">
               Quadrant 1
-          </Col>
+              
+            </Col>
             <Col className="padding-bottom">
               Quadrant 2
           </Col>
@@ -43,6 +45,7 @@ class ShoppingList extends Component {
                     }).map(({ _id, name, quadrant }) => (
                       <CSSTransition key={_id} timeout={500} classNames="fade">
                         <ListGroupItem>
+                          <UpdateModal quadrant={quadrant} id={_id} name={name} />
                           <Button
                             className="remove-btn"
                             color="danger"
@@ -52,7 +55,8 @@ class ShoppingList extends Component {
 
                     </Button>
                           {name}
-                          {console.log(name)}
+                          {console.log(typeof _id)}
+                          {console.log(`${name} is the name, ${_id} is the id`)}
                         </ListGroupItem>
                       </CSSTransition>
                     ))}
@@ -156,8 +160,7 @@ class ShoppingList extends Component {
   }
 }
 ShoppingList.propTypes = {
-  getItems: PropTypes.func.isRequired,
-  item: PropTypes.object.isRequired
+  getItems: PropTypes.func.isRequired
 }
 const mapStateToProps = state => ({
   item: state.item,

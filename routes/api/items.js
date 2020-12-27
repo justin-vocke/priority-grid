@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+var mongoose = require('mongoose');
 //Item Model
 const Item = require('../../models/Item');
 
@@ -26,13 +26,47 @@ router.post('/', (req, res) => {
   newItem.save().then(item => res.json(item));
 })
 
+// @route PUT api/items/:id
+// @desc Update an item
+// @access Public
+router.put('/:id', async (req, res) => {
+  const { name, quadrant, id } = req.body;
+  console.log(id);
+  try {
+
+    const activity = await Item.findById((req.params.id));
+
+    activity.name = name;
+    activity.quadrant = quadrant;
+    activity.save();
+    res.json(activity);
+  }
+  catch (err) {
+
+    console.error(err.message);
+
+    res.status(500).send("server error");
+  }
+
+
+})
+
 // @route DELETE api/items/:id
 // @desc Delete an item
 // @access Public
 router.delete('/:id', (req, res) => {
-  Item.findById(req.params.id)
-    .then(item => item.remove().then(() => res.json({ success: true })))
-    .catch(err => res.status(404).json({ success: false }));
+
+  console.log("for delete " + "req.params.id is " + req.params.id)
+  Item.findByIdAndRemove(req.params.id, err => {
+    if (err) {
+      console.log(err.message);
+      res.status(404).json({ success: false })
+    }
+    else {
+      res.json({ success: true })
+    }
+  })
+
 
 
 })
