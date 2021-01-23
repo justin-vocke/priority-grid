@@ -5,54 +5,47 @@ const bcrypt = require('bcryptjs');
 const User = require('../../models/User');
 const config = require('config');
 const jwt = require('jsonwebtoken');
+const auth = require('../../middleware/auth');
 
 
-// @route POST api/users
-// @desc Register new user
+// @route POST api/auth
+// @desc Auth user
 // @access Public
 router.post('/',
   async (req, res) => {
-    const { name, email, password } = req.body;
-    if (!name || !email || !password) {
+    const { email, password } = req.body;
+    if (!email || !password) {
       return res.status(400).json({ msg: "Please fill out all fields" });
     }
     try {
       //check for existing user *since we'd write email:email we can shorthand to just email
       let user = await User.findOne({ email });
 
-      if (user) return res.status(400).json({ msg: "User already exists" });
-      let newUser = new User({
-        name,
-        email,
-        password
-      });
+      if (!user) return res.status(400).json({ msg: "User Does Not Exist!" });
+    
+    //Validate password
 
-      //Create salt and hash
-      const salt = await bcrypt.genSalt(10);
-      newUser.password = await bcrypt.hash(password, salt);
+    bcrypt.compare(password,user.password)
+    .then(isMatch => {
+      if(!isMatch) return res.status(400).json({msg: "Invalid Credentials"});
 
-      await newUser.save(async (err, user) => {
-
-        jwt.sign(
-          { id: user.id },
-          config.get('jwtSecret'),
-          { expiresIn: 360000 },
-          (err, token) => {
-            if (err) throw err;
-            res.json({
-              token,
-              user: {
-                id: user.id,
-                name: user.name,
-                email: user.email
-              }
-            })
-          }
-        )
-
-
-      });
-
+      jwt.sign(
+        { id: user.id },
+        config.get('jwtSecret'),
+        { expiresIn: 360000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({
+            token,
+            user: {
+              id: user.id,
+              name: user.name,
+              email: user.email
+            }
+          })
+        }
+      )
+    })
 
     }
     catch (err) {
@@ -63,5 +56,13 @@ router.post('/',
 
   })
 
+  // @route GET api/auth/user
+// @desc GET user data
+// @access Private
+router.get('/user', auth, (req,res) =>{
+  User.findById(req.user.id)
+  .select('-password')
+  .then(user => res.json(user));
+});
 
 module.exports = router;
