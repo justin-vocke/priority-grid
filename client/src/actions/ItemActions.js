@@ -30,7 +30,8 @@ export const addItem = item => async dispatch => {
         'Content-Type': 'application/json'
       }
     }
-    const body = JSON.stringify({ item });
+    const body = JSON.stringify(item);
+    console.log(body);
     const res = await axios.post('/api/items', body, config);
 
     dispatch({

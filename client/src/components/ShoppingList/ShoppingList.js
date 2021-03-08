@@ -19,26 +19,26 @@ class ShoppingList extends Component {
   }
   render() {
     const { items, loading } = this.props.item;
+    let q1Items = items.filter(item => item.quadrant== '1');
+    let q2Items = items.filter(item => item.quadrant== '2');
+    let q3Items = items.filter(item => item.quadrant== '3');
+    let q4Items = items.filter(item => item.quadrant== '4');
     return loading ? (
       <Spinner />
 
     ) :
       (
         <Container>
-          <Row className="center">
-            <Col>
-              Quadrant 1
-          </Col>
-            <Col>
-              Quadrant 2
-          </Col>
-          </Row>
+          
           <Row className="margin-bottom">
             <Col>
               <ListGroup>
+              Quadrant 1
 
 
-                {items.map(({ _id, name }) => (
+                {
+
+                q1Items.map(({ _id, name }) => (
 
                   <ListGroupItem>
                     <Button
@@ -60,8 +60,8 @@ class ShoppingList extends Component {
             <Col>
               <ListGroup>
 
-
-                {items.map(({ _id, name }) => (
+Quadrant 2
+                {q2Items.map(({ _id, name }) => (
 
                   <ListGroupItem>
                     <Button
@@ -84,9 +84,9 @@ class ShoppingList extends Component {
           <Row>
             <Col>
               <ListGroup>
+Quadrant 3
 
-
-                {items.map(({ _id, name }) => (
+                {q3Items.map(({ _id, name }) => (
 
                   <ListGroupItem>
                     <Button
@@ -107,9 +107,9 @@ class ShoppingList extends Component {
             </Col>
             <Col>
               <ListGroup>
+Column 4
 
-
-                {items.map(({ _id, name }) => (
+                {q4Items.map(({ _id, name }) => (
 
                   <ListGroupItem>
                     <Button
@@ -130,14 +130,7 @@ class ShoppingList extends Component {
             </Col>
 
           </Row>
-          <Row className="center">
-            <Col>
-              Quadrant 3
-          </Col>
-            <Col>
-              Quadrant 4
-          </Col>
-          </Row>
+          
 
 
         </Container>

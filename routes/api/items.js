@@ -17,13 +17,22 @@ router.get('/', (req, res) => {
 // @route POST api/items
 // @desc Create an item
 // @access Public
-router.post('/', (req, res) => {
-  const newItem = new Item({
-    name: req.body.name,
-    quadrant: req.body.quadrant
-  });
+router.post('/', async (req, res) => {
+  try{
+    const newItem = new Item({
+      name: req.body.name,
+      quadrant: req.body.quadrant
+    });
+  console.log(newItem);
+    const item = await newItem.save();
+    res.json(item);
 
-  newItem.save().then(item => res.json(item));
+  }
+  catch(err){
+    console.log(err.message);
+    res.status(500).send('Server error');
+  }
+  
 })
 
 // @route DELETE api/items/:id

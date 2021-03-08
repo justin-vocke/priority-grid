@@ -2,7 +2,7 @@
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEMS_LOADING } from '../actions/types';
 
 const initialState = {
-  items: [[], [], [], []],
+  items: [],
   loading: false
 }
 
