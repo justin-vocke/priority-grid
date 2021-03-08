@@ -27,130 +27,126 @@ class ShoppingList extends Component {
   render() {
     //items and loading come from state
     const { items, loading } = this.props.item;
+    const {isAuthenticated} = this.props.auth;
+    let q1Items = items.filter(item => item.quadrant== '1');
+    let q2Items = items.filter(item => item.quadrant== '2');
+    let q3Items = items.filter(item => item.quadrant== '3');
+    let q4Items = items.filter(item => item.quadrant== '4');
     return loading ? (
       <Spinner />
-    ) : (
-      <Container>
-        <Row className="center">
-          <Col className="padding-bottom">Quadrant 1</Col>
-          <Col className="padding-bottom">Quadrant 2</Col>
-        </Row>
-        <Row className="margin-bottom">
-          <Col>
-            <ListGroup>
-              <TransitionGroup className="shopping-list">
-                {items
-                  .filter((item) => {
-                    return item.quadrant == "1";
-                  })
-                  .map(({ _id, name, quadrant }) => (
-                    <CSSTransition key={_id} timeout={500} classNames="fade">
-                      <ListGroupItem>
-                        <UpdateModal quadrant={quadrant} id={_id} name={name} />
-                        <Button
-                          className="remove-btn"
-                          color="danger"
-                          size="sm"
-                          onClick={this.onDeleteClick.bind(this, _id)}
-                        >
-                          &times;
-                        </Button>
-                        {name}
-                        {console.log(typeof _id)}
-                        {console.log(`${name} is the name, ${_id} is the id`)}
-                      </ListGroupItem>
-                    </CSSTransition>
-                  ))}
-              </TransitionGroup>
-            </ListGroup>
-          </Col>
-          <Col>
-            <ListGroup>
-              <TransitionGroup className="shopping-list">
-                {items
-                  .filter((item) => {
-                    return item.quadrant == "2";
-                  })
-                  .map(({ _id, name }) => (
-                    <CSSTransition key={_id} timeout={500} classNames="fade">
-                      <ListGroupItem>
-                        <Button
-                          className="remove-btn"
-                          color="danger"
-                          size="sm"
-                          onClick={this.onDeleteClick.bind(this, _id)}
-                        >
-                          &times;
-                        </Button>
-                        {name}
-                        {console.log(name)}
-                      </ListGroupItem>
-                    </CSSTransition>
-                  ))}
-              </TransitionGroup>
-            </ListGroup>
-          </Col>
-        </Row>
-        <Row className="center">
-          <Col className="padding-bottom">Quadrant 3</Col>
-          <Col className="padding-bottom">Quadrant 4</Col>
-        </Row>
-        <Row>
-          <Col>
-            <ListGroup>
-              <TransitionGroup className="shopping-list">
-                {items
-                  .filter((item) => {
-                    return item.quadrant == "3";
-                  })
-                  .map(({ _id, name }) => (
-                    <CSSTransition key={_id} timeout={500} classNames="fade">
-                      <ListGroupItem>
-                        <Button
-                          className="remove-btn"
-                          color="danger"
-                          size="sm"
-                          onClick={this.onDeleteClick.bind(this, _id)}
-                        >
-                          &times;
-                        </Button>
-                        {name}
-                        {console.log(name)}
-                      </ListGroupItem>
-                    </CSSTransition>
-                  ))}
-              </TransitionGroup>
-            </ListGroup>
-          </Col>
-          <Col>
-            <ListGroup>
-              <TransitionGroup className="shopping-list">
-                {items
-                  .filter((item) => {
-                    return item.quadrant == "4";
-                  })
-                  .map(({ _id, name }) => (
-                    <CSSTransition key={_id} timeout={500} classNames="fade">
-                      <ListGroupItem>
-                        <Button
-                          className="remove-btn"
-                          color="danger"
-                          size="sm"
-                          onClick={this.onDeleteClick.bind(this, _id)}
-                        >
-                          &times;
-                        </Button>
-                        {name}
-                        {console.log(name)}
-                      </ListGroupItem>
-                    </CSSTransition>
-                  ))}
-              </TransitionGroup>
-            </ListGroup>
-          </Col>
-        </Row>
-      </Container>
-    );
+
+    ) : !isAuthenticated ? (
+      <h1>You should log in</h1>
+    ) :
+      (
+        <Container>
+          
+          <Row className="margin-bottom">
+            <Col>
+              <ListGroup>
+              Quadrant 1
+
+
+                {
+
+                q1Items.map(({ _id, name }) => (
+
+                  <ListGroupItem>
+                    <Button
+                      className="remove-btn"
+                      color="danger"
+                      size="sm"
+                      onClick={this.onDeleteClick.bind(this, _id)}
+                    >&times;
+
+                  </Button>
+                    {name}
+                    {console.log(name)}
+                  </ListGroupItem>
+
+                ))}
+
+              </ListGroup>
+            </Col>
+            <Col>
+              <ListGroup>
+
+Quadrant 2
+                {q2Items.map(({ _id, name }) => (
+
+                  <ListGroupItem>
+                    <Button
+                      className="remove-btn"
+                      color="danger"
+                      size="sm"
+                      onClick={this.onDeleteClick.bind(this, _id)}
+                    >&times;
+
+                  </Button>
+                    {name}
+                    {console.log(name)}
+                  </ListGroupItem>
+
+                ))}
+
+              </ListGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <ListGroup>
+Quadrant 3
+
+                {q3Items.map(({ _id, name }) => (
+
+                  <ListGroupItem>
+                    <Button
+                      className="remove-btn"
+                      color="danger"
+                      size="sm"
+                      onClick={this.onDeleteClick.bind(this, _id)}
+                    >&times;
+
+                  </Button>
+                    {name}
+                    {console.log(name)}
+                  </ListGroupItem>
+
+                ))}
+
+              </ListGroup>
+            </Col>
+            <Col>
+              <ListGroup>
+Column 4
+
+                {q4Items.map(({ _id, name }) => (
+
+                  <ListGroupItem>
+                    <Button
+                      className="remove-btn"
+                      color="danger"
+                      size="sm"
+                      onClick={this.onDeleteClick.bind(this, _id)}
+                    >&times;
+
+                  </Button>
+                    {name}
+                    {console.log(name)}
+                  </ListGroupItem>
+
+                ))}
+
+              </ListGroup>
+            </Col>
+
+          </Row>
+          
+
+
+        </Container>
+
+      );
   }
 }
 ShoppingList.propTypes = {
@@ -158,6 +154,6 @@ ShoppingList.propTypes = {
 };
 const mapStateToProps = (state) => ({
   item: state.item,
-  loading: state.item,
+  auth: state.auth
 });
 export default connect(mapStateToProps, { getItems, deleteItem })(ShoppingList);

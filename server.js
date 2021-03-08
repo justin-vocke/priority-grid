@@ -5,17 +5,12 @@ const path = require('path');
 const items = require('./routes/api/items');
 const connectDB = require('./config/db');
 
-
+//Connect to Mongo
+connectDB();
 const app = express();
 
 //Bodyparser Middleware
-
 app.use(express.json());
-
-
-
-//Connect to Mongo
-connectDB();
 
 
 //Use Routes

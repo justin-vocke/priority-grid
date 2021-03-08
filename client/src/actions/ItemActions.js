@@ -43,11 +43,12 @@ export const addItem = (item) => async (dispatch, getState) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json",
-      },
-    };
-    const body = JSON.stringify({ name, quadrant });
-    const res = await axios.post("/api/items", body, tokenConfig(getState));
+        'Content-Type': 'application/json'
+      }
+    }
+    const body = JSON.stringify(item);
+    console.log(body);
+    const res = await axios.post('/api/items', body, config);
 
     dispatch({
       type: ADD_ITEM,

@@ -89,8 +89,8 @@ class ItemModal extends Component {
                 <Label for="select">
                   Which quadrant?
                 </Label>
-                <Input type="select" value={this.state.quadrant} name="select" id="select" onChange={this.onQuadrantChange}>
-                  <option  >1</option>
+                <Input type="select" name="quadrant" id="select" onChange={this.onChange}>
+                  <option>1</option>
                   <option>2</option>
                   <option>3</option>
                   <option>4</option>
